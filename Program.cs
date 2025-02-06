@@ -18,7 +18,8 @@ if (!string.IsNullOrEmpty(keyVaultUrl))
     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
 }
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration["DefaultConnection"]));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL")));
+//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration["DefaultConnection"]));
 
 builder.Services.AddAuthentication(options =>
 {
